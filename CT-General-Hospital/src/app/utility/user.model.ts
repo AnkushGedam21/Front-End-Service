@@ -2,19 +2,19 @@
 export class Users{
     
     
-    private  staffId : number;
-	private  roleId : number;
-	private  empId : number;
+     public  staffId : number;
+	 public  roleId : number;
+	 public  empId : number;
 
-	private  title : string;
-	private  firstName : string;
-	private  lastName : string;
-	private  email : string;
-	private  birthDate : Date;
+	 public  title : string;
+	 public  firstName : string;
+	 public  lastName : string;
+	 public  email : string;
+	 public  birthDate : Date;
 
-	private  username : string;
-	private  password : string;
-	private  deleted : boolean;
-	private  active : string;
+	 public  username : string;
+	 public  password : string;
+	 public  deleted : boolean;
+	 public  active : string;
 
 }
