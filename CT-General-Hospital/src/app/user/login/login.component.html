@@ -1,0 +1,107 @@
+<div class=".container" style="background-color: lightseagreen; margin-top: 70px;">
+  <div class="row">
+    <div class="col-sm-6">
+      <ul class="list-group">
+        <li class="jumbotron text-center">
+          <mat-card style="background-color: chocolate">
+            <mat-card-title><b>Respect For Life</b></mat-card-title>
+          </mat-card>
+        </li>
+        <li class="list-group-item active">
+          <h1 class=".font-weight-bold">
+            We Have Started with our Executive Service
+          </h1>
+        </li>
+        <li class="list-group-item list-group-item-danger">
+          <h1 class=".font-weight-bold">World Best Smart Hospital</h1>
+        </li>
+        <li class="list-group-item list-group-item-warning">
+          <h1 class=".font-weight-bold">Clinical Assessment</h1>
+        </li>
+        <li class="list-group-item list-group-item-danger">
+          <h1 class=".font-weight-bold">Imagining</h1>
+        </li>
+        <li>
+          <mat-card class="jumbotron text-center">
+            <mat-card-title
+              ><p
+                style="
+                  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+                    sans-serif;
+                  color: darkolivegreen;
+                "
+              >
+                To Book an Appoitment
+              </p>
+              <b>Call Toll Free 6435 2873 3232</b></mat-card-title
+            >
+          </mat-card>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-4">
+      <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+        <mat-card class="box">
+          <mat-card-header>
+            <mat-card-title>Log in</mat-card-title>
+          </mat-card-header>
+          <form
+            [formGroup]="loginform"
+            (ngSubmit)="onSubmit()"
+            class="example-form"
+          >
+            <mat-card-content>
+              <div class="example-container">
+                <mat-form-field class="example-full-width" appearance="fill">
+                  <mat-label>Enter your email/username</mat-label>
+                  <input
+                    type="text"
+                    formControlName="email"
+                    id="email"
+                    class="form-control"
+                    matInput
+                    placeholder="Email/Username"
+                  />
+                  <div *ngIf="f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.touched" class="alert alert-danger">
+                      <div *ngIf="f.email.errors.required">Email Required</div>
+                    </div>
+                  </div>
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                <mat-form-field class="example-full-width">
+                  <input
+                    type="text"
+                    formControlName="password"
+                    id="password"
+                    class="form-control"
+                    matInput
+                    placeholder="Password"
+                    [ngClass]="f.password.errors"
+                  />
+                  <div *ngIf="f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.touched" class="alert alert-danger">
+                      <div *ngIf="f.password.errors.required">
+                        Password Required
+                      </div>
+                      <div *ngIf="f.password.errors.minlength">
+                        Password must be at least 6 characters
+                      </div>
+                    </div>
+                  </div>
+                </mat-form-field>
+              </div>
+            </mat-card-content>
+            <div class="form-group">
+              <button [disabled]="loginform.invalid" mat-stroked-button color="accent" class="btn btn-primary btn-block">
+                Log in
+              </button><br>
+              <button at-stroked-button color="accent" class="btn btn-link">Forget Password</button>
+            </div>
+          </form>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

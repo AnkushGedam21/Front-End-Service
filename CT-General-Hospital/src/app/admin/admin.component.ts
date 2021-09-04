@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  constructor(private toaster:ToastrService, private notify:Notification) { }
 
   ngOnInit(): void {
+  }
+
+  showToaster(){
+    console.log("Button click")
   }
 
 }
