@@ -16,6 +16,7 @@ export class LoginserviceService {
   constructor(private http : HttpClient) {
     
     this.loadData();
+    console.log(this.users)
     this.userurl = 'http://localhost:8082/staffs';
     this.currentUser = new BehaviorSubject<Users>(JSON.parse(localStorage.getItem('user')));
    }
@@ -29,6 +30,7 @@ export class LoginserviceService {
       });
   }
   login(email : any, password : any):Observable<Users[]>{
+    console.log(this.users)
     return this.http.get<Users[]>(`${this.userurl}`);
     
   }

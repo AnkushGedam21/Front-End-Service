@@ -1,3 +1,12 @@
-<button (click)="showToaster()">
-    Show Toaster
-</button>
+<!-- <div class="container">
+        <div class="row">
+            <div class="col-sm-6"><app-admin-nav></app-admin-nav></div>
+            <div class="col-sm-6"><app-admincontent></app-admincontent></div>
+    </div>
+</div> -->
+
+<mat-drawer-container class="example-container">
+    <mat-drawer mode="side" opened><app-admin-nav></app-admin-nav></mat-drawer>
+    <mat-drawer-content><app-admincontent></app-admincontent></mat-drawer-content>
+  </mat-drawer-container>
+  

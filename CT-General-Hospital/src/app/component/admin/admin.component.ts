@@ -8,13 +8,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AdminComponent implements OnInit {
 
-  constructor(private toaster:ToastrService, private notify:Notification) { }
+  constructor(private toaster:ToastrService) { }
 
   ngOnInit(): void {
   }
 
-  showToaster(){
-    console.log("Button click")
-  }
+ 
 
 }

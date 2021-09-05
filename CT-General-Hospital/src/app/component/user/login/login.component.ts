@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LoginserviceService } from 'src/app/services/loginservice.service';
 import { Users } from 'src/app/utility/user.model';
 import {first,map,filter} from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder : FormBuilder,
     private router : Router,
     private loginService: LoginserviceService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -30,7 +32,7 @@ get f(){
 }
 
   onSubmit(){
-    console.log("onSubmit Called()"+this.f.email.value+this.f.password.value)
+    console.log("onSubmit Called()"+this.f.email.value+""+this.f.password.value)
     if(this.loginform.invalid){return}
     
     this.loginService.login(this.f.email.value, this.f.password.value)
@@ -40,16 +42,19 @@ get f(){
         this.user = data;
         if(this.f.email.value == this.user.email && this.f.password.value == this.user.password)
         {
-       
-        alert("login sucessfully")
+       this.toastr.success("Login Successfully");
         }
         else{
-          alert("Invalid Credentails")
-          
+          //alert("Invalid Credentails");
+          this.toastr.error("Internal Error")
+          this.router.navigate(['admin'])
         }
       },
       (error : any) =>{
-        alert("Invalid Login")
+        //alert("Invalid Login")
+        this.router.navigate(['admin'])
+        this.toastr.error("Inavalid failed")
+        this.router.navigate(['admin'])
       });
     
       

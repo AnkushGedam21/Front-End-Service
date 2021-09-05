@@ -5,3 +5,14 @@
     text-align: center;
     text-decoration: none;
   }
+
+  .panel-footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: dimgrey; 
+    height: 50px;
+    color: white;
+    text-align: center;
+  }
