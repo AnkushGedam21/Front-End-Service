@@ -1,9 +1,10 @@
+import { Roles } from './roles.model';
 
-export class Users{
+export class User{
     
     
      public  staffId : number;
-	 public  roleId : number;
+	 public  role_id : number;
 	 public  empId : number;
 
 	 public  title : string;
@@ -15,6 +16,7 @@ export class Users{
 	 public  username : string;
 	 public  password : string;
 	 public  deleted : boolean;
-	 public  active : string;
+	 public  status : string;
+	
 
 }

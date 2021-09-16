@@ -1,0 +1,92 @@
+<mat-form-field appearance="standard">
+  <mat-label>Filter</mat-label>
+  <input
+    matInput
+     (keyup)="applyFilter($event)" 
+    placeholder="Search with staff id or staff name"
+    #input
+  />
+</mat-form-field>
+
+<div class="table-responsive">
+  <table mat-table [dataSource]="dataSource" matSort class="table table-hover">
+    <!-- ID Column -->
+    <ng-container matColumnDef="empId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee ID</th>
+      <td mat-cell *matCellDef="let row">{{ row.empId }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="staffname">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Patient Name</th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.firstName }}&nbsp;{{ row.lastName }}
+      </td>
+    </ng-container>
+
+    <!-- Registration date Column -->
+    <ng-container matColumnDef="createdOn">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Date Of registration
+      </th>
+      <td mat-cell *matCellDef="let row">{{ row.createdOn | date }}</td>
+    </ng-container>
+
+    <!-- status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+      <td mat-cell *matCellDef="let row">
+        <h3 *ngIf ="row.status ==='active'" ><span class="label-success">Active</span></h3>
+        <h3 *ngIf ="row.status ==='deactive'"  > <span class="label label-warning">Inactive </span></h3> 
+        <h3 *ngIf ="row.status =='block'" ><span class="label label-danger">Blocked</span></h3>
+      </td>
+    </ng-container>
+
+    <!-- Edit Status-->
+
+    <ng-container matColumnDef="editstatus">
+      <th mat-header-cell *matHeaderCellDef>Edit Status</th>
+      <td mat-cell *matCellDef="let row">
+        <button
+        *ngIf ="row.status!=='active'"
+          type="button"
+          (click)="acivateUser(row.patientId)"
+          class="btn btn-primary"
+        >
+          Activate
+        </button>&nbsp;
+        <button
+        *ngIf ="row.status!=='deactive'"
+          type="button"
+          (click)="deactivateUser(row.patientId)"
+          class="btn btn-warning"
+        >
+          Deactivate
+        </button>&nbsp;
+      <button
+      *ngIf ="row.status!=='block'"
+          type="button"
+          (click)="deactivateUser(row.patientId)"
+          class="btn btn-danger"
+        >
+          Blocked
+        </button> 
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="2">
+        No data matching the filter "{{ input.value }}"
+      </td>
+    </tr>
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    aria-label="Select page of users"
+  ></mat-paginator>
+</div>

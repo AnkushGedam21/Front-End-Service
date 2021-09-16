@@ -67,15 +67,22 @@ const materialModules = [
   MatRadioModule,
   MatDatepickerModule,
   MatTooltipModule,
+  
 ];
 
 @NgModule({
   imports: [
     CommonModule,
-    ...materialModules
+    ...materialModules,
+    MatTableModule,
+    MatSortModule,
+    MatInputModule
   ],
   exports: [
-    ...materialModules
+    ...materialModules,
+    MatTableModule,
+    MatSortModule,
+    MatInputModule
   ],
 })
 

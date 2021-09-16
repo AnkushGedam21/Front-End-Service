@@ -21,6 +21,17 @@ import {HttpClientModule} from '@angular/common/http';
 import {MatInputModule} from '@angular/material/input';
 import { AdminNavComponent } from './component/admin/admin-nav/admin-nav.component';
 import { AdmincontentComponent } from './component/admin/admincontent/admincontent.component';
+import {  ChartModule } from 'primeng/chart';
+import { UserManagementComponent } from './component/admin/user-management/user-management.component';
+import { PatientManagementComponent } from './component/admin/patient-management/patient-management.component';
+import { CdkColumnDef } from '@angular/cdk/table';
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { Routes } from '@angular/router';
+const routes: Routes = [
+  
+];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +44,10 @@ import { AdmincontentComponent } from './component/admin/admincontent/adminconte
     InboxComponent,
     LoginComponent,
     AdminNavComponent,
-    AdmincontentComponent
+    AdmincontentComponent,
+    UserManagementComponent,
+    PatientManagementComponent
+   
   ],
   imports: [
     BrowserModule,
@@ -43,10 +57,13 @@ import { AdmincontentComponent } from './component/admin/admincontent/adminconte
     FormsModule,
     ReactiveFormsModule,
     AngularMaterialModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ChartModule,
+    Ng2SearchPipeModule,
+    FlexLayoutModule
    
   ],
-  providers: [],
+  providers: [CdkColumnDef],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
