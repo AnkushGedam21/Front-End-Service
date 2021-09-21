@@ -15,7 +15,7 @@ export class Patient{
 	private  username:string;
 	private  password:string;
 	private  deleted: boolean;
-	private  status:boolean;
+	private  status:string;
 
 	private createdOn: Date;
 

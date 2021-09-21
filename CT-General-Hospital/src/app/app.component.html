@@ -1,5 +1,6 @@
-<app-inbox></app-inbox>
+
 <mat-toolbar class="mat-elevation-z8">
+    
   <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
       <mat-icon *ngIf="!sidenav.opened">
           menu
@@ -8,8 +9,17 @@
           close
       </mat-icon>
   </button>
-  CT General Hospital
+   CT General Hospital
+   <ul class="nav navbar-right" style="margin-left: 550px;">
+    <li ><a href="#"><span class="glyphicon glyphicon-user"></span> Register Patient </a></li>
+    <li><a href="#"><span class="glyphicon glyphicon-user"></span>Register Staff </a></li>
+    <li><a href="#"><span class="glyphicon glyphicon-log-out"></span>logout </a></li>
+  </ul> 
+  
+  
+
 </mat-toolbar>
+
 
 <mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
@@ -17,15 +27,9 @@
       <img class="img-responsive" src="assets\ctlogo.PNG" />
 
       <h4 class="name">CT GENERAL HOSPITAL</h4>
-      <p class="designation"> ADMIN</p>
+      <h5 class="designation"> ADMIN</h5>
 
       <mat-divider></mat-divider>
-      <!-- <button aria-hidden="true" mat-button class="menu-button" routerLink='/patient-details'>
-          
-        <mat-icon aria-hidden="false" aria-label="Example home icon">View All Patient</mat-icon>
-        <span>View All Patient</span> 
-     
-</button> -->
 <button mat-button class="Example tab icon" routerLink='/patient-details'>
   <mat-icon>perm_identity</mat-icon>
   <span >View All Patient details</span>
@@ -87,3 +91,4 @@
       
   </mat-sidenav-content>
 </mat-sidenav-container>
+<app-footer></app-footer>

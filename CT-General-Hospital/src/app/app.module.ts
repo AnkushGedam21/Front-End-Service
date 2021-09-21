@@ -28,6 +28,8 @@ import { CdkColumnDef } from '@angular/cdk/table';
 import {Ng2SearchPipeModule} from 'ng2-search-filter';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Routes } from '@angular/router';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { OrderModule } from 'ngx-order-pipe';
 const routes: Routes = [
   
 ];
@@ -60,7 +62,9 @@ const routes: Routes = [
     ToastrModule.forRoot(),
     ChartModule,
     Ng2SearchPipeModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    NgxPaginationModule,
+    OrderModule
    
   ],
   providers: [CdkColumnDef],

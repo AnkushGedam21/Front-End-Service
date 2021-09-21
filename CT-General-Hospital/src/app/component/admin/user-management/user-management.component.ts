@@ -1,13 +1,28 @@
-import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ViewChild,
+  OnInit,
+  ElementRef,
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AdminserviceService } from 'src/app/services/adminservice.service';
 import { LoginserviceService } from 'src/app/services/loginservice.service';
 import { User } from 'src/app/utility/user.model';
-
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl): boolean {
+    return !!control;
+  }
+}
+interface Status {
+  value: string;
+  viewValue: string;
+}
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
@@ -15,18 +30,30 @@ import { User } from 'src/app/utility/user.model';
 })
 export class UserManagementComponent implements OnInit {
   user: User | null = null;
-  displayedColumns: string[] = [
-    'empId',
-    'staffname',
-    'createdOn',
-    'status',
-    'editstatus',
+  allEmployee: User[];
+  currentContact?: null;
+  currentIndex = -1;
+  id = '';
+  p = 1;
+  index: number;
+  newrecord: number = 5;
+  value = 5;
+  key: string = 'id';
+  reverse: boolean = false;
+  staffId: number;
+  allStaffId: number[] = [];
+  allStaffStatus: string[] = [];
+  disableSelect = new FormControl(true);
+  matcher = new MyErrorStateMatcher();
+  selectedValue: string;
+  allStatus: Status[] = [
+    { value: 'active', viewValue: 'Activate' },
+    { value: 'deactive', viewValue: 'Deactivate' },
+    { value: 'block', viewValue: 'Blocked' },
   ];
-  dataSource: MatTableDataSource<User>;
 
+  @ViewChild('RecordNumber', { static: false }) recordnum: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
   constructor(
     private adminService: AdminserviceService,
     private toastr: ToastrService,
@@ -37,58 +64,58 @@ export class UserManagementComponent implements OnInit {
     this.loginService.userInfo.subscribe((user: any) => {
       this.user = user;
     });
-    // Assign the data to the data source for the table to render
   }
-  refreshList(){
-    this.ngOnInit();
+  refreshList() {
+    this.loadUser();
+    this.currentContact = null;
+    this.currentIndex = -1;
   }
 
   loadUser() {
-    this.adminService.getAllUsers()
-    .subscribe(
+    this.adminService.getAllUsers().subscribe(
       (data) => {
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.allEmployee = data;
+        this.toastr.success('All Data Loaded');
       },
-      error =>{
+      (error) => {
         console.log(error);
       }
-    )
-    // this.adminService.getAllUsers().subscribe((listOfUsers) => {
-    //   this.allUser = listOfUsers;
-    //   this.dataSource = new MatTableDataSource(this.allUser);
-    //   this.toastr.success('All Data loaded successfully');
-    //   this.dataSource.paginator = this.paginator;
-    //   console.log(this.allUser)
-    // });
+    );
+  }
+  setActiveContact(employee: User, index: number): void {
+    this.currentContact = undefined;
+    this.currentIndex = index;
   }
 
-  // ngAfterViewInit() {
-  //   this.loadUser();
-  //   this.dataSource.paginator = this.paginator;
-  //   this.dataSource.sort = this.sort;
-  // }
+  sort(key: any) {
+    this.key = key;
+    this.reverse = !this.reverse;
+  }
 
+  changeRecord(value: any) {
+    this.newrecord = value;
+  }
+  selected = new FormControl('selected.value', [
+    Validators.pattern('selected.value'),
+  ]);
+  onClick(i: number) {
+    this.index = i;
+    this.disableSelect = new FormControl(!this.disableSelect.value);
+  }
+  changeStatus() {
+    this.adminService
+      .editEmployeeStatus(this.allStaffId, this.allStaffStatus)
+      .subscribe((data) => {
+        console.log(data);
+      });
+  }
+  addValues(patientId: number) {
+    this.allStaffId.push(patientId);
+    this.allStaffStatus.push(this.selectedValue);
+  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-  acivateUser(staffId: number) {
-    alert("Method called")
-    this.adminService.activateUser(staffId);
-    this.refreshList();
-  }
-  deactivateUser(staffId: number) {
-    alert("Method called")
-    this.adminService.deactivateUser(staffId);
-    this.refreshList();
-  }
-  blockedUser(staffId: number) {
-    this.adminService.blockedUser(staffId);
-    this.refreshList();
+
+    console.log(filterValue);
   }
 }
